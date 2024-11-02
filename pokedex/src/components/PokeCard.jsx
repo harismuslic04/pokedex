@@ -19,7 +19,7 @@ export default function PokeCard(props) {
       cache = JSON.parse(localStorage.getItem("pokedex"));
     }
 
-    // 2. check if the selected pokemon is in the cache, otherwise fetch from the API
+    // 2. chec if the selected pokemon is in the cache, otherwise fetch from the API
 
     if (selectedPokemon in cache) {
       //read from cache
