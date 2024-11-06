@@ -9,15 +9,16 @@ export default function PokeCard(props) {
 
   const { name, height, abilities, stats, types, moves, sprites } = data || {};
 
-  const imgList = Objest.keys(sprites || {}).filter((val) => {
+  const imgList = Object.keys(sprites || {}).filter((val) => {
     if (!sprites[val]) {
       return false;
     }
-    if (["version", "other"].includes(val)) {
+    if (["versions", "other"].includes(val)) {
       return false;
     }
     return true;
   });
+  console.log(imgList);
 
   useEffect(() => {
     // if loading, exit logic
@@ -84,13 +85,41 @@ export default function PokeCard(props) {
         })}
       </div>
       <img
+        className="default-img"
         src={"/pokemon/" + getFullPokedexNumber(selectedPokemon) + ".png"}
         alt={`${name}-large-img`}
       />
       <div className="img-container">
         {imgList.map((spriteUrl, spriteIndex) => {
+          const imgUrl = sprites[spriteUrl];
           return (
-            <img key={spriteIndex} src={""} alt={`${name}-img-${spriteUrl}`} />
+            <img
+              key={spriteIndex}
+              src={imgUrl}
+              alt={`${name}-img-${spriteUrl}`}
+            />
+          );
+        })}
+      </div>
+      <h3>Stats</h3>
+      <div className="stats-card">
+        {stats.map((statObj, statIndex) => {
+          const { stat, base_stat } = statObj;
+          return (
+            <div key={statIndex}>
+              <p>{statObj?.stat?.name}</p>
+              <h4>{base_stat}</h4>
+            </div>
+          );
+        })}
+      </div>
+      <h3>Moves</h3>
+      <div className="pokemon-move-grid">
+        {moves.map((moveObj, moveIndex) => {
+          return (
+            <button key={moveIndex} className="button-card pokemon move">
+              <p>{moveObj?.move?.name.replaceAll("-", " ")}</p>
+            </button>
           );
         })}
       </div>

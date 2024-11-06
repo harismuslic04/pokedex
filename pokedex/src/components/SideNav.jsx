@@ -5,8 +5,8 @@ export default function SideNav() {
     <nav>
       <div className={"header"}>
         <h1 className="text-gradient">Pokèdex</h1>
-        <input />
       </div>
+      <input />
       {first151Pokemon.map((pokemon, pokemonIndex) => {
         return (
           <button key={pokemonIndex} className={"nav-card"}>
